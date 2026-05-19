@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>가락빌딩 사무공간 이용 서비스 신청서</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f5f5f5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #1a1a1a; padding: 32px 16px 60px; }
+  .wrap { max-width: 600px; margin: 0 auto; }
+  .card { background: #fff; border-radius: 12px; border: 1px solid #e5e5e5; padding: 24px 28px; margin-bottom: 12px; }
+  .card-header { border-top: 3px solid #185FA5; border-radius: 12px; }
+  .badge { display: inline-block; background: #E6F1FB; color: #185FA5; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 6px; margin-bottom: 10px; }
+  h1 { font-size: 18px; font-weight: 600; color: #1a1a1a; margin-bottom: 6px; line-height: 1.4; }
+  .desc { font-size: 13px; color: #666; line-height: 1.6; }
+  .sec-title { font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 16px; display: flex; align-items: center; gap: 6px; }
+  .field { margin-bottom: 16px; }
+  .field:last-child { margin-bottom: 0; }
+  .field > label { display: block; font-size: 14px; font-weight: 500; color: #1a1a1a; margin-bottom: 6px; }
+  .req { color: #e24b4a; margin-left: 2px; }
+  input[type=text], input[type=tel], input[type=email] {
+    width: 100%; font-size: 14px; padding: 9px 12px;
+    border: 1px solid #ddd; border-radius: 8px; background: #fff;
+    color: #1a1a1a; font-family: inherit; outline: none;
+    transition: border-color 0.15s;
+  }
+  input[type=text]:focus, input[type=tel]:focus, input[type=email]:focus { border-color: #185FA5; }
+  .rg { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+  .ri { display: flex; align-items: center; gap: 10px; padding: 11px 14px; border: 1px solid #e5e5e5; border-radius: 8px; cursor: pointer; transition: background 0.1s, border-color 0.1s; }
+  .ri:hover { background: #f8f8f8; }
+  .ri.sel { border-color: #85B7EB; background: #E6F1FB; }
+  .ri input[type=radio] { width: 16px; height: 16px; cursor: pointer; flex-shrink: 0; accent-color: #185FA5; }
+  .ri label { font-size: 14px; color: #1a1a1a; cursor: pointer; font-weight: 400; }
+  .svc-box { background: #f8f8f8; border-radius: 8px; padding: 14px 16px; }
+  .svc-row { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; font-size: 13px; }
+  .svc-k { color: #666; }
+  .svc-v { color: #1a1a1a; font-weight: 500; text-align: right; }
+  .price-row { border-top: 1px solid #e5e5e5; margin-top: 8px; padding-top: 10px; }
+  .errmsg { font-size: 12px; color: #e24b4a; margin-top: 4px; display: none; }
+  .privacy { font-size: 12px; color: #888; line-height: 1.7; margin-bottom: 14px; }
+  .sub-btn { width: 100%; padding: 14px; background: #185FA5; color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; transition: background 0.15s; }
+  .sub-btn:hover { background: #0C447C; }
+  .sub-btn:disabled { background: #bbb; cursor: not-allowed; }
+  .spinner { display: inline-block; width: 15px; height: 15px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: -2px; margin-right: 6px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .ok-box { background: #eaf3de; border: 1px solid #97C459; border-radius: 12px; padding: 44px 28px; text-align: center; }
+  .ok-icon { font-size: 48px; margin-bottom: 14px; }
+  .ok-title { font-size: 17px; font-weight: 600; color: #27500A; margin-bottom: 8px; }
+  .ok-desc { font-size: 14px; color: #3B6D11; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="form-container">
+
+    <div class="card card-header">
+      <div class="badge">사무공간 서비스</div>
+      <h1>가락빌딩 사무공간 이용 서비스 신청서</h1>
+      <p class="desc">신청 기간: 2026년 5월 20일(수) — 5월 24일(일)&nbsp;&nbsp;|&nbsp;&nbsp;이용 의향이 없으신 분도 제출해 주시면 수요 파악에 도움이 됩니다.</p>
+    </div>
+
+    <div class="card">
+      <div class="sec-title">신청자 정보</div>
+
+      <div class="field">
+        <label>이름 <span class="req">*</span></label>
+        <input type="text" id="f-name" placeholder="홍길동" />
+        <div class="errmsg" id="e-name">이름을 입력해 주세요.</div>
+      </div>
+
+      <div class="field">
+        <label>사업자명 <span class="req">*</span></label>
+        <input type="text" id="f-oc" placeholder="예: OOO 오피스 컨설턴트" />
+        <div class="errmsg" id="e-oc">사업자명을 입력해 주세요.</div>
+      </div>
+
+      <div class="field">
+        <label>연락처 (휴대폰) <span class="req">*</span></label>
+        <input type="tel" id="f-phone" placeholder="010-0000-0000" />
+        <div class="errmsg" id="e-phone">연락처를 입력해 주세요.</div>
+      </div>
+
+      <div class="field">
+        <label>이메일 <span class="req">*</span></label>
+        <input type="email" id="f-email" placeholder="example@email.com" />
+        <div class="errmsg" id="e-email">이메일을 입력해 주세요.</div>
+      </div>
+
+      <div class="field">
+        <label>커넥트플러스 아이디 <span class="req">*</span></label>
+        <input type="text" id="f-cpid" placeholder="커넥트플러스 로그인 아이디" />
+        <div class="errmsg" id="e-cpid">커넥트플러스 아이디를 입력해 주세요.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="sec-title">이용 의향</div>
+      <div class="field">
+        <label>서비스 이용 의향 <span class="req">*</span></label>
+        <div class="rg">
+          <div class="ri" onclick="selR('intent','신청',this)">
+            <input type="radio" name="intent" id="i-yes" value="신청" />
+            <label for="i-yes">신청합니다</label>
+          </div>
+          <div class="ri" onclick="selR('intent','미신청',this)">
+            <input type="radio" name="intent" id="i-no" value="미신청" />
+            <label for="i-no">이용하지 않겠습니다</label>
+          </div>
+        </div>
+        <div class="errmsg" id="e-intent">이용 의향을 선택해 주세요.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="sec-title">주차권 현황</div>
+      <div class="field">
+        <label>주차권 보유 여부 <span class="req">*</span></label>
+        <div class="rg">
+          <div class="ri" onclick="selR('parking','센터 지급',this)">
+            <input type="radio" name="parking" id="p-center" value="센터 지급" />
+            <label for="p-center">센터에서 지급받은 주차권 보유</label>
+          </div>
+          <div class="ri" onclick="selR('parking','본인 보유',this)">
+            <input type="radio" name="parking" id="p-self" value="본인 보유" />
+            <label for="p-self">본인이 별도 보유 중</label>
+          </div>
+          <div class="ri" onclick="selR('parking','없음',this)">
+            <input type="radio" name="parking" id="p-none" value="없음" />
+            <label for="p-none">주차권 없음</label>
+          </div>
+        </div>
+        <div class="errmsg" id="e-parking">주차권 현황을 선택해 주세요.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="sec-title">서비스 안내</div>
+      <div class="svc-box">
+        <div class="svc-row"><span class="svc-k">장소</span><span class="svc-v">가락빌딩 9층 (슬로우/알로소, 193㎡)</span></div>
+        <div class="svc-row"><span class="svc-k">좌석</span><span class="svc-v">예약제 공용 자유석 약 38석 (모니터 포함)</span></div>
+        <div class="svc-row"><span class="svc-k">회의실</span><span class="svc-v">8인 회의실 2개 (예약제)</span></div>
+        <div class="svc-row"><span class="svc-k">제공</span><span class="svc-v">복합기, 개인 락커(SWS 1칸), 사업자 주소지</span></div>
+        <div class="svc-row price-row">
+          <span class="svc-k">월 이용료</span>
+          <span style="font-size:16px;font-weight:600;color:#185FA5;">220,000원 (VAT 포함)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="border: 1.5px solid #185FA5; background: #E6F1FB;">
+      <div style="display:flex; align-items:flex-start; gap:10px;">
+        <div style="font-size:20px; flex-shrink:0;">📎</div>
+        <div>
+          <div style="font-size:14px; font-weight:600; color:#0C447C; margin-bottom:6px;">사업자등록증 사본 제출 안내</div>
+          <p style="font-size:14px; color:#185FA5; line-height:1.7; margin:0;">신청 완료 후 사업자등록증 사본을 별도로 제출해 주시기 바랍니다.<br>
+          이메일: <span style="color:#0C447C; font-weight:600; font-style:normal;">jaeik_jung@fursys.com</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="privacy">수집된 정보는 사무공간 서비스 운영 목적에만 사용되며, 서비스 종료 후 파기됩니다.</p>
+      <button class="sub-btn" id="sbtn" onclick="submitForm()">신청서 제출</button>
+    </div>
+
+  </div>
+
+  <div id="ok-container" style="display:none;">
+    <div class="ok-box">
+      <div class="ok-icon">✅</div>
+      <div class="ok-title">신청이 완료되었습니다</div>
+      <p class="ok-desc">입력하신 내용이 접수되었습니다.<br>담당자 확인 후 개별 안내 드릴 예정입니다.<br><br>신청 완료 후 사업자등록증 사본을 별도로 제출해 주시기 바랍니다.<br>이메일: <a href="mailto:jaeik_jung@fursys.com" style="color:#3B6D11;">jaeik_jung@fursys.com</a><br><br>문의: 영업지원팀</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ★ Apps Script 배포 후 아래 URL을 교체하세요
+  const SCRIPT_URL = https://script.google.com/macros/s/AKfycbwuIcMtIfs9CDBdLaI16I0gk0eLIK1jHDGAhSMpeXzlnR0XlAgBsqOYRy-qm5KuOiqpig/exec
+
+  function selR(name, value, el) {
+    document.querySelectorAll(`input[name="${name}"]`).forEach(r => r.closest('.ri').classList.remove('sel'));
+    el.classList.add('sel');
+    el.querySelector('input').checked = true;
+  }
+
+  function getR(name) {
+    const el = document.querySelector(`input[name="${name}"]:checked`);
+    return el ? el.value : '';
+  }
+
+  function showErr(id, show) {
+    document.getElementById(id).style.display = show ? 'block' : 'none';
+  }
+
+  function submitForm() {
+    const name    = document.getElementById('f-name').value.trim();
+    const oc      = document.getElementById('f-oc').value.trim();
+    const phone   = document.getElementById('f-phone').value.trim();
+    const email   = document.getElementById('f-email').value.trim();
+    const cpid    = document.getElementById('f-cpid').value.trim();
+    const intent  = getR('intent');
+    const parking = getR('parking');
+
+    let valid = true;
+    showErr('e-name',    !name);    if (!name)    valid = false;
+    showErr('e-oc',      !oc);      if (!oc)      valid = false;
+    showErr('e-phone',   !phone);   if (!phone)   valid = false;
+    showErr('e-email',   !email);   if (!email)   valid = false;
+    showErr('e-cpid',    !cpid);    if (!cpid)    valid = false;
+    showErr('e-intent',  !intent);  if (!intent)  valid = false;
+    showErr('e-parking', !parking); if (!parking) valid = false;
+    if (!valid) return;
+
+    const btn = document.getElementById('sbtn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>제출 중...';
+
+    const payload = {
+      이름:              name,
+      사업자명:          oc,
+      연락처:            phone,
+      이메일:            email,
+      커넥트플러스아이디: cpid,
+      이용의향:          intent,
+      주차권:            parking,
+      제출일시:          new Date().toLocaleString('ko-KR')
+    };
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(() => {
+      document.getElementById('form-container').style.display = 'none';
+      document.getElementById('ok-container').style.display = 'block';
+    })
+    .catch(() => {
+      btn.disabled = false;
+      btn.innerHTML = '신청서 제출';
+      alert('제출 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
+    });
+  }
+</script>
+</body>
+</html>
